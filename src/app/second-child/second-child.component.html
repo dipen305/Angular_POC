@@ -1,0 +1,12 @@
+<p>User Data Input/Output>
+<div *ngFor="let user of userData">
+    <p>User Name: {{user.name}}</p>
+    <p>User age: {{user.age}}</p>
+    <p>User DOB: {{user.dob | date:'dd/MM/yyyy'}}</p>
+</div>
+<p>User Data Using Service</p>
+<div *ngFor="let user of userDataService.userData">
+    <p>User Name: {{user.name}}</p>
+    <p>User age: {{user.age}}</p>
+    <p>User DOB: {{user.dob | date:'dd/MM/yyyy'}}</p>
+</div>

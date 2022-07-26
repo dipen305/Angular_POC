@@ -1,0 +1,17 @@
+
+<nav class="navbar navbar-dark bg-primary">
+  <ul>
+    <li class="nav-item"> <a routerLinkActive="active" routerLink="home">Home</a></li>
+    <li class="nav-item"> <a routerLinkActive="active" routerLink="routing-demo">Routing</a></li>
+    <li class="nav-item"> <a routerLinkActive="active" routerLink="auth-guard-demo">Auth Guard</a></li>
+    <li class="nav-item"> <a routerLinkActive="active" routerLink="resolve-guard-demo" [queryParams]="{id:10}">Resolve Guard</a></li>
+    <li class="nav-item"> <a routerLinkActive="active" routerLink="can-deactivate-guard">Can Deactivate Guard</a></li>
+    <li class="nav-item"> <a routerLinkActive="active" routerLink="forms">Forms</a></li>
+    <li class="nav-item"> <a routerLinkActive="active" routerLink="rxjs-playground">RXJS</a></li>
+  </ul>
+  <ul>
+    <button class="btn btn-danger" (click)="onLogin()">Log In</button>
+    <button class="btn btn-danger" (click)="onLogOut()">Log Out</button>
+  </ul>
+</nav>
+<router-outlet></router-outlet>

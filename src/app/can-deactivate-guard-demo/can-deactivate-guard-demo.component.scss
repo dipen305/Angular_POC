@@ -1,0 +1,17 @@
+.myForm {
+    min-width: 500px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem
+  }
+  @media (max-width: 500px) {
+    .myForm {
+      min-width: 90%;
+    }
+  }
+  label {
+    text-align: left;
+  }

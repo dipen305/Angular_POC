@@ -1,0 +1,17 @@
+<div class="container">
+    <form class="myForm" method="post">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control input-lg" [(ngModel)]="userEmail" type="email" name="email" id="email" placeholder="email" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control input-lg" [(ngModel)]="userPassword" type="password" name="password" placeholder="password" />
+      </div>
+      <div class="form-group">
+        <input type="submit" name="submit" (click)="onSignIn()" class="btn btn-success btn-lg" value="Sign In" />
+      </div>
+    </form>
+  </div>
+  
+  

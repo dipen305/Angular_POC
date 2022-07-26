@@ -1,0 +1,16 @@
+.form-group {
+    margin: 10px;;
+}
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+form,.form-data {
+    border: 0.5px solid lightgray;
+    padding: 10px;
+}
+input[type=radio] {
+    margin-right: 5px;
+}
+.form-data>div>p {
+    padding-left: 20px;
+}

@@ -1,0 +1,24 @@
+
+<div class="table-wrapper">
+	<div class="header">
+		<h1> User Data </h1>
+	</div>
+	<div class="table-container">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th scope="col" *ngFor="let header of tableHeader">{{header | titlecase}}</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr *ngFor="let user of userData">
+				<td>{{user.id}}</td>
+				<td>{{user.name}}</td>
+				<td>{{user.email}}</td>
+				<td>{{user.gender}}</td>
+				<td>{{user.status}}</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+</div>

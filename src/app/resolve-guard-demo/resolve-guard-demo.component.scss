@@ -1,0 +1,17 @@
+.table-wrapper{
+    margin: 25px;
+}
+.header {
+    text-align: center;
+}
+
+thead>tr{
+    background-color: #dff0d8;
+}
+tbody>tr:nth-child(even){
+    background-color: #dff0d8;
+}
+
+tbody>tr:nth-child(odd){
+   background-color: #f2dede;
+}

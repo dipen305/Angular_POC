@@ -1,0 +1,14 @@
+
+<div class="container">
+    <div class="row">
+        <h1 style="background-color:#0e6dfd; color:#ffffff">Input, Output and Service Demo</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6 child">
+            <app-first-child (addclick)="addClick($event)"></app-first-child>
+        </div>
+        <div class="col-md-6 child">
+            <app-second-child [userData]="userData"></app-second-child>
+        </div>
+    </div>
+</div>
