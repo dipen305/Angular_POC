@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserDataService } from '../services/user-data.service';
+import { UserDataService } from '../../services/user-data.service';
 
 @Component({
   selector: 'app-second-child',

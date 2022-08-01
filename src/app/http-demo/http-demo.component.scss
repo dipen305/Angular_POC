@@ -1,0 +1,19 @@
+.main {
+    margin-top: 25px;
+}
+.card {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.spin {
+    margin-top: 30vh;
+}
+.card-header:hover {
+    background-color: #dfbfdf;
+}
+.card-header.isActive {
+    background-color: #dfbfdf;
+}
+.card.isActive {
+    border: 2px solid #dfbfdf ;
+}

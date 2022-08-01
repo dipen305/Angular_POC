@@ -9,13 +9,13 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   constructor(private authService: AuthService, private router: Router) { }
-  title = 'demoProject';
+  title = 'Angular_POC';
   onLogin() {
   this.router.navigate(['/sign-in']);
   }
   onLogOut() {
     if (confirm('are you sure you want to logOut').valueOf()) {
-      this.authService.setUserStatus(false);
+      //this.authService.setUserStatus(false);
       this.router.navigate(['/home']);
     }
 

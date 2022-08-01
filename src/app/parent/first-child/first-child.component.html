@@ -1,0 +1,23 @@
+<div class="container">
+    <form #userForm="ngForm">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" name="name" required [(ngModel)]="userName" id="name">
+        </div>
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" class="form-control" required [(ngModel)]="age" name="age">
+        </div>
+        <div class="form-group">
+            <label for="dob">DOB:</label>
+            <input type="date" class="form-control" required [(ngModel)]="dob" name="dob">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" [disabled]="!userForm.valid" (click)="addClick()" name="add">Add</button>
+            <button class="btn btn-success" [disabled]="!userForm.valid" (click)="onAddUsingService()" name="add-using-service">Add Using Service</button>
+            <button class="btn btn-danger" [disabled]="!userForm.valid" (click)="onClear()" name="clear">Clear</button>
+        </div>
+    </form>
+</div>
+
+<router-outlet></router-outlet>

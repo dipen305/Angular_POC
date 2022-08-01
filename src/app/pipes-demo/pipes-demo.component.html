@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="row" style="text-align: center;">
+        <div class="col">
+            <h1>Pipes Examples</h1>
+            <h5> Reference : <a target="_blank" href="https://angular.io/api?query=pipe"> All Pipes </a></h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>
+                Date Pipe
+            </h2>
+            
+            <h5> Original Date : {{todaysDate}}</h5>
+            <div>
+                <ul>
+                    <li>Format ('dd/MM/yyyy') : {{todaysDate | date:'dd/MM/yyyy'}} </li>
+                    <li>Format ('MM/dd/yyyy') : {{todaysDate | date:'MM/dd/yyyy'}} </li>
+                    <li>Format ('yyyy/MM/dd') : {{todaysDate | date:'yyyy/MM/dd'}} </li>
+                    <li>Format ('Short') : {{todaysDate | date:'short'}} </li>
+                    <li>Format ('Medium') : {{todaysDate | date:'medium'}} </li>
+                    <li>Format ('Long') : {{todaysDate | date:'long'}} </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>
+                String Case
+            </h2>
+            <ul>
+                <li>Original Text = uppercase : {{'uppercase' | uppercase}}</li>
+                <li>Original Text = Lowercase : {{'Lowercase' | lowercase}}</li>
+                <li>Original Text = TITLECASE : {{'TITLECASE' | titlecase}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h2>
+                Multiple Pipes
+            </h2>
+            <ul>
+                <li>Format ('fullDate') +  uppercase : {{todaysDate | date:'fullDate' | uppercase}} </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>
+                Custom Pipe
+            </h2>
+            <ul>
+                <li>uppercase : {{'uppercase'| customPipe}} </li>
+            </ul>
+        </div>
+    </div>
+</div>

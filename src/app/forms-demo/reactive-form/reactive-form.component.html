@@ -26,6 +26,12 @@
                     <div>
                         <input class="form-control" type="number" formControlName="age" name="age" required id="age">
                     </div>
+                    <span *ngIf="userDataForm.get('age')?.invalid && userDataForm.get('age')?.touched"
+                    style="color: red;">
+                    <span *ngIf="userDataForm.get('age')?.errors?.['ageLimitForbidden']">
+                        Age should be greater than 20 
+                    </span>
+                </span>
                 </div>
                 <div class="form-group">
                     <div>

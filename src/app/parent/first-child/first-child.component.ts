@@ -1,9 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { CanComponentDeactivate } from '../guards/can-deactivate.guard';
-import { userDataModel } from '../models/userData.model';
-import { UserDataService } from '../services/user-data.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { userDataModel } from '../../models/userData.model';
+import { UserDataService } from '../../services/user-data.service';
 
 @Component({
   selector: 'app-first-child',
@@ -29,10 +27,8 @@ export class FirstChildComponent implements OnInit {
     console.log(this.routeData);
   }
   addClick() {
-    
     let obj = new userDataModel(this.userName, this.age, this.dob)
     this.userData.push(obj);
-    this.userDataService.userData.push(obj);
     this.addclick.emit(this.userData);
   }
   onChildRoutes(){
@@ -41,5 +37,15 @@ export class FirstChildComponent implements OnInit {
     this.router.navigate(['first-child',10],{queryParams:{id:10,name:'Dipen'}})
   }
 
+  onAddUsingService(){
+    let obj = new userDataModel(this.userName, this.age, this.dob)
+    this.userDataService.userData.push(obj);
+  }
+
+  onClear(){
+    this.userData = []
+    this.addclick.emit(this.userData);
+    this.userDataService.userData = [];
+  }
   
 }

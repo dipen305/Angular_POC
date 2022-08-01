@@ -1,10 +1,10 @@
-<p>User Data Input/Output>
+<h3>User Data Using Input/Output</h3>
 <div *ngFor="let user of userData">
     <p>User Name: {{user.name}}</p>
     <p>User age: {{user.age}}</p>
     <p>User DOB: {{user.dob | date:'dd/MM/yyyy'}}</p>
 </div>
-<p>User Data Using Service</p>
+<h3>User Data Using Service</h3>
 <div *ngFor="let user of userDataService.userData">
     <p>User Name: {{user.name}}</p>
     <p>User age: {{user.age}}</p>

@@ -7,8 +7,10 @@ import { FormsDemoComponent } from './forms-demo/forms-demo.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 import { ResolveGuard } from './guards/resolve.guard';
+import { HttpDemoComponent } from './http-demo/http-demo.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { ParentComponent } from './parent/parent.component';
+import { PipesDemoComponent } from './pipes-demo/pipes-demo.component';
 import { ResolveGuardDemoComponent } from './resolve-guard-demo/resolve-guard-demo.component';
 import { RoutingDemoChildComponent } from './routing-demo/routing-demo-child/routing-demo-child.component';
 import { RoutingDemoComponent } from './routing-demo/routing-demo.component';
@@ -26,6 +28,8 @@ const routes: Routes = [
   ]},
   {path:'rxjs-playground', component:RxjsPlaygroundComponent},
   {path:'forms', component:FormsDemoComponent},
+  {path:'pipes', component:PipesDemoComponent},
+  {path:'http', component:HttpDemoComponent},
   {path:'error', component:ErrorComponent},
   {path:'**',component:ParentComponent}
 ];

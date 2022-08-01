@@ -1,0 +1,49 @@
+<app-error-modal [errorMessage]="errorMessage"></app-error-modal>
+<app-error-box></app-error-box>
+<div class="container main">
+    <div class="row">
+            <div class="col-md-6">
+                <form #form="ngForm">
+                    <div>
+                        <label for="title"> Title:</label>
+                    </div>
+                    <div>
+                        <input type="text" class="form-control" required [(ngModel)]="title" id="title" name="title">
+                    </div>
+                <div class="row">
+                    <div>
+                        <label for="title"> Description:</label>
+                    </div>
+                    <div>
+                        <textarea class="form-control" id="description" required name="description" rows="6" [(ngModel)]="description"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <button class="btn btn-success" type="button" (click)="onFetchData()">Fetch Data</button>
+                        <button class="btn btn-primary" type="button" [disabled]="form.invalid" (click)="onSubmit()">Submit</button>
+                        <button class="btn btn-primary" type="button" [disabled]="form.invalid" (click)="onUpdateData()">Update</button>
+                        <button class="btn btn-primary" type="button" (click)="onDelete()">Delete</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        
+        <div class="col-md-6" style="text-align: center;">
+            <app-loader *ngIf="isFetching"></app-loader>
+            <ng-container *ngIf="!isFetching && postData?.length>0">
+                <div class="card" [ngClass]="{'isActive' : activeId == i }" *ngFor="let data of postData; let i =index">
+                    <div class="card-header" [ngClass]="{'isActive' : activeId == i }" style="cursor: pointer;" (click)="onCardSelection(i)">
+                        <a>{{data.title}}</a>
+                    </div>
+                    <div class="card-body">
+                        <p>{{data.description}}</p>
+                    </div>
+                </div>
+            </ng-container>
+            <div *ngIf="!isFetching && postData?.length<=0">
+                <span>No data found!</span>
+            </div>
+        </div>
+    </div>
+</div>
