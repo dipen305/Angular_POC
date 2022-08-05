@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AnimationDemoComponent } from './animation-demo/animation-demo.component';
 import { AuthGuardDemoComponent } from './auth-guard-demo/auth-guard-demo.component';
 import { CanDeactivateGuardDemoComponent } from './can-deactivate-guard-demo/can-deactivate-guard-demo.component';
+import { CustomDirectiveComponent } from './custom-directive/custom-directive.component';
+import { DynamicComponentComponent } from './dynamic-component/dynamic-component.component';
 import { ErrorComponent } from './error/error.component';
 import { FormsDemoComponent } from './forms-demo/forms-demo.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -15,6 +18,7 @@ import { ResolveGuardDemoComponent } from './resolve-guard-demo/resolve-guard-de
 import { RoutingDemoChildComponent } from './routing-demo/routing-demo-child/routing-demo-child.component';
 import { RoutingDemoComponent } from './routing-demo/routing-demo.component';
 import { RxjsPlaygroundComponent } from './rxjs-playground/rxjs-playground.component';
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
   {path:'',pathMatch:'full',redirectTo:'/home'},
@@ -28,7 +32,11 @@ const routes: Routes = [
   ]},
   {path:'rxjs-playground', component:RxjsPlaygroundComponent},
   {path:'forms', component:FormsDemoComponent},
+  {path:'custom-directive', component:CustomDirectiveComponent},
   {path:'pipes', component:PipesDemoComponent},
+  {path:'dynamic-component', component:DynamicComponentComponent},
+  {path:'animation', component:AnimationDemoComponent},
+  {path:'test', component:TestComponent},
   {path:'http', component:HttpDemoComponent},
   {path:'error', component:ErrorComponent},
   {path:'**',component:ParentComponent}

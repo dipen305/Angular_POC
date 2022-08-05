@@ -1,0 +1,21 @@
+
+
+<div class="container main">
+    <div class="row">
+        <div class="col-md-6 txt-center">
+        <h1> Structural Directive Example</h1>
+            <h3>It will show the element only if value is false</h3>
+            <hr>
+            <h2>Click on buttun below to see the change</h2>
+            <button (click)="isShown = !isShown" class="btn btn-primary">Change Show Status</button>
+            <h3 *appUnless="isShown" style="margin-top: 10px;color:red;">isShown is false</h3>
+
+        </div>
+        <div class="col-md-6 txt-center">
+            <h1> Attribute Directive Example</h1>
+            <h2>Mouse hover on below text</h2>
+                <span class="text-container" appHighlightBgColor customBgColor="#f7b4fa"><strong>Hover on me to change the backgroung colour</strong></span>
+            
+        </div>
+    </div>
+</div>

@@ -33,6 +33,16 @@ import { LoggingInterceptorService } from './interceptors/logging-interceptor.se
 import { LoaderComponent } from './shared/loader/loader.component';
 import { ErrorModalComponent } from './shared/error-modal/error-modal.component';
 import { ErrorBoxComponent } from './shared/error-box/error-box.component';
+import { HighlightBgColorDirective } from './shared/directives/highlight-bg-color.directive';
+import { CustomDirectiveComponent } from './custom-directive/custom-directive.component';
+import { UnlessDirective } from './shared/directives/unless.directive';
+import { TestComponent } from './test/test.component';
+import { ErrorService } from './services/error.service';
+import { PlaceholderDirective } from './directives/placeholder.directive';
+import { DynamicComponentComponent } from './dynamic-component/dynamic-component.component';
+import { AnimationDemoComponent } from './animation-demo/animation-demo.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -58,14 +68,23 @@ import { ErrorBoxComponent } from './shared/error-box/error-box.component';
     HttpDemoComponent,
     LoaderComponent,
     ErrorModalComponent,
-    ErrorBoxComponent
+    ErrorBoxComponent,
+    HighlightBgColorDirective,
+    CustomDirectiveComponent,
+    UnlessDirective,
+    TestComponent,
+    PlaceholderDirective,
+    DynamicComponentComponent,
+    AnimationDemoComponent,
+    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     UserDataService,
@@ -73,6 +92,7 @@ import { ErrorBoxComponent } from './shared/error-box/error-box.component';
     AuthService,
     CanDeactivateGuard,
     PostsService,
+    ErrorService,
     {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorService,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:LoggingInterceptorService,multi:true},
   ],

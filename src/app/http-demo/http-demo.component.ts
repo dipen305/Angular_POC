@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { filter } from 'rxjs';
+import { ErrorService } from '../services/error.service';
 import { PostsService } from '../services/posts.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class HttpDemoComponent implements OnInit {
   postData!: any;
   isFetching = false;
   @ViewChild('form') form!: NgForm;
-  constructor(private postService: PostsService) { }
+  constructor(private postService: PostsService,private errorService:ErrorService) { }
 
   ngOnInit(): void {
     this.onFetchData();
@@ -33,7 +34,8 @@ export class HttpDemoComponent implements OnInit {
         this.onFetchData();
       })
     } else {
-      this.errorMessage = 'Can not insert data with same title!';
+      this.errorService.setErrorMessage('Can not insert data with same title!');
+      //this.errorMessage = 'Can not insert data with same title!';
     }
   }
 
@@ -45,7 +47,9 @@ export class HttpDemoComponent implements OnInit {
         this.onCardSelection(0);
         this.isFetching = false;
       }, error: (error) => {
-      this.errorMessage = 'Something went wrong. Please try again later!';
+      this.errorService.setErrorMessage('Something went wrong. Please try again later!');
+
+      //this.errorMessage = 'Something went wrong. Please try again later!';
         this.isFetching = false
       }
     })
@@ -58,7 +62,9 @@ export class HttpDemoComponent implements OnInit {
         console.log(res);
         this.onFetchData();
       }, error: (error) => {
-      this.errorMessage = 'Something went wrong. Please try again later!';
+      this.errorService.setErrorMessage('Something went wrong. Please try again later!');
+        
+      //this.errorMessage = 'Something went wrong. Please try again later!';
         this.isFetching = false
       }
     })
@@ -79,8 +85,8 @@ export class HttpDemoComponent implements OnInit {
         this.onFetchData();
       })
     } else {
-      
-      this.errorMessage = 'Can not update data with same title!';
+      this.errorService.setErrorMessage('Can not update data with same title!');
+      //this.errorMessage = 'Can not update data with same title!';
     }
 
   }
