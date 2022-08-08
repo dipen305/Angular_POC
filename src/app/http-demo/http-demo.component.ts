@@ -26,7 +26,7 @@ export class HttpDemoComponent implements OnInit {
 
   onSubmit() {
     let data = { 'title': this.title, 'description': this.description }
-    let isDuplicate = this.duplicateCheck(this.postData);
+    let isDuplicate = this.postData.some((item: any) => item.title === this.title);
     if (!isDuplicate) {
       this.isFetching = true;
       this.postService.createPost(data).subscribe((response) => {
@@ -35,6 +35,7 @@ export class HttpDemoComponent implements OnInit {
       })
     } else {
       this.errorService.setErrorMessage('Can not insert data with same title!');
+      this.isFetching = false;
       //this.errorMessage = 'Can not insert data with same title!';
     }
   }
@@ -44,6 +45,9 @@ export class HttpDemoComponent implements OnInit {
     this.postService.fetchPosts().subscribe({
       next: (response) => {
         this.postData = response
+        if(this.activeId)
+        this.onCardSelection(this.activeId);
+        else
         this.onCardSelection(0);
         this.isFetching = false;
       }, error: (error) => {
@@ -77,8 +81,9 @@ export class HttpDemoComponent implements OnInit {
     this.description = this.postData[index].description;
   }
   onUpdateData() {
+    this.isFetching = true;
     let data = { 'title': this.title, 'description': this.description }
-    let isDuplicate = this.duplicateCheck(this.postData);
+    let isDuplicate = this.postData.some((item: any,index:number) => item.title === this.title && index !=this.activeId);
     if (!isDuplicate) {
       this.postService.updatePosts(data, this.activeRecordId).subscribe((response) => {
         console.log(response);
@@ -86,11 +91,13 @@ export class HttpDemoComponent implements OnInit {
       })
     } else {
       this.errorService.setErrorMessage('Can not update data with same title!');
+    this.isFetching = false;
+
       //this.errorMessage = 'Can not update data with same title!';
     }
 
   }
-  duplicateCheck(data: string[]) {
-    return data.some((item: any) => item.title === this.title);
+  duplicateCheck(data: string[],isSubmit?:boolean) {
+    return data.some((item: any,index) => item.title === this.title);
   }
 }

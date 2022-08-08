@@ -33,8 +33,8 @@
         <div class="col-md-6" style="text-align: center;">
             <app-loader *ngIf="isFetching"></app-loader>
             <ng-container *ngIf="!isFetching && postData?.length>0">
-                <div class="card" [ngClass]="{'isActive' : activeId == i }" *ngFor="let data of postData; let i =index">
-                    <div class="card-header" [ngClass]="{'isActive' : activeId == i }" style="cursor: pointer;" (click)="onCardSelection(i)">
+                <div class="card" [ngClass]="{'isActive' : activeId === i }" *ngFor="let data of postData; let i =index">
+                    <div class="card-header" [ngClass]="{'isActive' : activeId === i }" style="cursor: pointer;" (click)="onCardSelection(i)">
                         <a>{{data.title}}</a>
                     </div>
                     <div class="card-body">

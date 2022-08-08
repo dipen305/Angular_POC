@@ -116,7 +116,7 @@ import {
   ]
 
 })
-export class AnimationDemoComponent implements OnInit {
+export class AnimationDemoComponent {
   state = 'normal';
   wildState = 'normal';
   list = ['Milk', 'Sugar', 'Bread'];
@@ -146,9 +146,6 @@ export class AnimationDemoComponent implements OnInit {
     console.log(event);
   }
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
 
