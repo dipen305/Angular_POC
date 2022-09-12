@@ -25,3 +25,26 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Production deployment steps AWS EC2
+
+
+1.  ssh -i "dipenec2.pem" ec2-user@ec2-3-86-161-122.compute-1.amazonaws.com(Connect to AWS console)
+2. scp -i Download/dipenec2.pem -r /Users/hirdhanj/Desktop/Projects/Angular_POC/dist/* ec2-user@ec2-3-86-161-122.compute-1.amazonaws.com (To copy files from local to Server) run this in separate console.
+3. sudo yum install nginx (Instal Nginx package)
+4. sudo systemctl start nginx
+5. systemctl status nginx.service -l (To check connection status)
+6. sudo vim /etc/nginx/nginx.conf ( Need to modify config file)
+7. Replace “root” with below code:
+location /{
+        root /home/ec2-user/demo-project;  (demo-project is build project folder name)
+        }
+
+## Extra command useful to fix issues
+sudo systemctl start nginx
+sudo systemctl reload nginx
+sudo systemctl restart nginx
+
+
+netstat -ltnp | grep :80 // To check process running on perticular port
+sudo kill -9 2910
