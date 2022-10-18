@@ -1,1 +1,8 @@
-<p>rxjs-playground works!</p>
+<input type="radio" name="color" [(ngModel)]="rxjsOperatorType" (change)="onRxjsOperatorChange($event)" value=""> Default
+
+<input type="radio" name="color" [(ngModel)]="rxjsOperatorType" (change)="onRxjsOperatorChange($event)" value="mergeMap"> MergeMap
+<input type="radio" name="color" [(ngModel)]="rxjsOperatorType" (change)="onRxjsOperatorChange($event)" value="concatMap"> ConcatMap
+<input type="radio" name="color" [(ngModel)]="rxjsOperatorType" (change)="onRxjsOperatorChange($event)" value="switchMap"> SwitchMap
+<input type="radio" name="color" [(ngModel)]="rxjsOperatorType" (change)="onRxjsOperatorChange($event)" value="exhaustMap"> ExhaustMap
+<br>
+<button type="button"(click)="fireEvent()">Submit</button>

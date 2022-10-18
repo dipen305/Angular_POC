@@ -38,7 +38,7 @@ import { CustomDirectiveComponent } from './custom-directive/custom-directive.co
 import { UnlessDirective } from './shared/directives/unless.directive';
 import { TestComponent } from './test/test.component';
 import { ErrorService } from './services/error.service';
-import { PlaceholderDirective } from './directives/placeholder.directive';
+import { PlaceholderDirective } from './shared/directives/placeholder.directive';
 import { DynamicComponentComponent } from './dynamic-component/dynamic-component.component';
 import { AnimationDemoComponent } from './animation-demo/animation-demo.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

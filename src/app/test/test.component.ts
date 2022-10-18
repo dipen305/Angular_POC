@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
-import { PlaceholderDirective } from '../directives/placeholder.directive';
+import { PlaceholderDirective } from '../shared/directives/placeholder.directive';
 import { ErrorModalComponent } from '../shared/error-modal/error-modal.component';
 
 @Component({

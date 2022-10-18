@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { filter, map, Observable } from 'rxjs';
+import { concatMap, exhaustMap, filter, map, mapTo, mergeMap, Observable, Subject, Subscription, switchMap, tap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs-playground',
@@ -8,7 +8,9 @@ import { filter, map, Observable } from 'rxjs';
 })
 export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
   tesObservableSub: any;
-
+  rxjsOperatorType: string = '';
+  sub = new Subject<string>();
+  subscription?:Subscription;
   constructor() { }
   ngOnDestroy(){
     this.tesObservableSub.unsubscribe()
@@ -48,5 +50,86 @@ export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
     });
   }
 
+  fireEvent() {
+    this.sub.next("first");
+    this.sub.next("second");
+
+    console.log("-------");
+  }
+  onRxjsOperatorChange(event: any) {
+    this.deregister();
+    // this.fireEvent();
+    switch (event.target.value) {
+      case 'mergeMap':
+        this.mergeMap();
+        break;
+      case 'concatMap':
+        this.concateMap();
+        break;
+      case 'switchMap':
+        this.switchMap();
+        break;
+      case 'exhaustMap':
+        this.exhaustMap();
+        break;
+      default:
+        break;
+    }
+  }
+
+  mergeMap() {
+    console.log('mergeMap');
+    this.subscription = this.sub
+      .asObservable()
+      .pipe(
+        tap(value => console.log("--> sent out", value)),
+        mergeMap(value => this.anyLongRunningOp(value))
+      )
+      .subscribe(value => console.log("<-- received", value));
+  }
+
+  concateMap() {
+    console.log('concateMap');
+    this.subscription = this.sub
+      .asObservable()
+      .pipe(
+        tap(value => console.log("--> sent out", value)),
+        concatMap(value => this.anyLongRunningOp(value))
+      )
+      .subscribe(value => console.log("<-- received", value));
+
+  }
+
+  switchMap() {
+    console.log('switchMap');
+    this.subscription = this.sub
+      .asObservable()
+      .pipe(
+        tap(value => console.log("--> sent out", value)),
+        switchMap(value => this.anyLongRunningOp(value))
+      )
+      .subscribe(value => console.log("<-- received", value));
+  }
+
+  exhaustMap() {
+    console.log('exhaustMap');
+    this.subscription = this.sub
+      .asObservable()
+      .pipe(
+        tap(value => console.log("--> sent out", value)),
+        exhaustMap(value => this.anyLongRunningOp(value))
+      )
+      .subscribe(value => console.log("<-- received", value));
+  }
+
+  anyLongRunningOp(value: string) {
+    return timer(2000).pipe(mapTo(value));
+  }
+
+  deregister() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
 }

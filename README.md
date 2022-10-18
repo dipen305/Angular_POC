@@ -47,4 +47,6 @@ sudo systemctl restart nginx
 
 
 netstat -ltnp | grep :80 // To check process running on perticular port
+sudo ss -lptn 'sport = :80' // to find process running on port 80
+
 sudo kill -9 2910
