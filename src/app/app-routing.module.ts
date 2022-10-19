@@ -21,7 +21,6 @@ import { RxjsPlaygroundComponent } from './rxjs-playground/rxjs-playground.compo
 import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
-  {path:'',pathMatch:'full',redirectTo:'/home'},
   {path:'home',component:ParentComponent},
   {path:'can-deactivate-guard',component:CanDeactivateGuardDemoComponent, canDeactivate:[CanDeactivateGuard]},
   {path:'auth-guard-demo',component:AuthGuardDemoComponent,canActivate:[AuthGuard]},
@@ -39,6 +38,7 @@ const routes: Routes = [
   {path:'test', component:TestComponent},
   {path:'http', component:HttpDemoComponent},
   {path:'error', component:ErrorComponent},
+  {path:'',redirectTo:'/home',pathMatch:'full'},
   {path:'**',component:ParentComponent}
 ];
 
