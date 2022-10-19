@@ -44,6 +44,7 @@ import { AnimationDemoComponent } from './animation-demo/animation-demo.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     PlaceholderDirective,
     DynamicComponentComponent,
     AnimationDemoComponent,
+    PageNotFoundComponent,
     
   ],
   imports: [

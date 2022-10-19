@@ -12,6 +12,7 @@ import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 import { ResolveGuard } from './guards/resolve.guard';
 import { HttpDemoComponent } from './http-demo/http-demo.component';
 import { LogInComponent } from './log-in/log-in.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ParentComponent } from './parent/parent.component';
 import { PipesDemoComponent } from './pipes-demo/pipes-demo.component';
 import { ResolveGuardDemoComponent } from './resolve-guard-demo/resolve-guard-demo.component';
@@ -39,7 +40,7 @@ const routes: Routes = [
   {path:'http', component:HttpDemoComponent},
   {path:'error', component:ErrorComponent},
   {path:'',redirectTo:'/home',pathMatch:'full'},
-  {path:'**',component:ParentComponent}
+  {path:'**',component:PageNotFoundComponent}
 ];
 
 @NgModule({
