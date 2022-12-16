@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { concatMap, exhaustMap, filter, map, mapTo, mergeMap, Observable, Subject, Subscription, switchMap, tap, timer } from 'rxjs';
+import { Data } from '@angular/router';
+import { concatMap, debounceTime, delay, distinctUntilChanged, exhaustMap, filter, map, mapTo, mergeMap, Observable, of, shareReplay, Subject, Subscription, switchMap, tap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs-playground',
@@ -7,11 +8,22 @@ import { concatMap, exhaustMap, filter, map, mapTo, mergeMap, Observable, Subjec
   styleUrls: ['./rxjs-playground.component.scss']
 })
 export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
+  // Model for form input value - this will always have latest value
+  public inputValue: string = '11';
+
+  debouncedInputValue :any;
+  // Holds results
+  public people$: Subject<any> = new Subject();
+
+  // Observable for debouncing input changes
+  private searchDecouncer$: Subject<string> = new Subject();
+
   tesObservableSub: any;
   rxjsOperatorType: string = '';
   sub = new Subject<string>();
   subscription?:Subscription;
-  constructor() { }
+  constructor() { 
+  }
   ngOnDestroy(){
     this.tesObservableSub.unsubscribe()
   }
@@ -48,6 +60,11 @@ export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
       error:error=>{console.log(error);},
       complete:()=>{}
     });
+
+ this.setupSearchDebouncer();
+
+    // Do initial search for 'darth'
+    this.search(this.inputValue);
   }
 
   fireEvent() {
@@ -132,4 +149,39 @@ export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
     }
   }
 
+  data = Array(100).fill(0).map(Math.random);
+ loadAndSearch(term: string): Observable<Data> {
+  const filtered = this.data.filter((item) => `${item}`.match(term));
+  return of(filtered).pipe(delay(100));
+}
+public onSearchInputChange(term: string): void {
+    // `onSearchInputChange` is called whenever the input is changed.
+    // We have to send the value to debouncing observable
+    this.searchDecouncer$.next(term);
+  }
+ private setupSearchDebouncer(): void {
+    // Subscribe to `searchDecouncer$` values,
+    // but pipe through `debounceTime` and `distinctUntilChanged`
+    this.searchDecouncer$
+      .pipe(debounceTime(250), distinctUntilChanged())
+      .subscribe((term: string) => {
+        // Remember value after debouncing
+       this.debouncedInputValue = term;
+
+        // Do the actual search
+        this.search(term);
+      });
+  }
+
+  private search(term: string): void {
+    // Clear results
+    this.people$.next(null);
+
+    // Make API call
+   
+    this.loadAndSearch(term).subscribe((results) => {
+      console.log(results);
+      this.people$.next(results);
+    });
+  }
 }
