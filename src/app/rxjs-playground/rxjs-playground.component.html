@@ -9,15 +9,16 @@
 
 <button type="button"(click)="fireEvent()">Submit</button>
 
-<input [(ngModel)]="inputValue" (ngModelChange)="onSearchInputChange($event)" />
-
+<!-- <input [(ngModel)]="inputValue" (ngModelChange)="onSearchInputChange($event)" />
 <hr>
-
 <ng-container *ngIf="people$ | async as people; else loading">
     Results for "{{ debouncedInputValue }}":
     <div *ngFor="let person of people">{{ person}}</div>
 </ng-container>
-
 <ng-template #loading>
     loading...
-</ng-template>
+</ng-template> -->
+
+
+<input type="search" [(ngModel)]="searchString" (ngModelChange)="onSearchStringChange($event)" />
+

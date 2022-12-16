@@ -1,17 +1,43 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Data } from '@angular/router';
-import { concatMap, debounceTime, delay, distinctUntilChanged, exhaustMap, filter, map, mapTo, mergeMap, Observable, of, shareReplay, Subject, Subscription, switchMap, tap, timer } from 'rxjs';
+import {
+  concatMap,
+  debounceTime,
+  delay,
+  distinctUntilChanged,
+  exhaustMap,
+  filter,
+  map,
+  mapTo,
+  mergeMap,
+  Observable,
+  of,
+  shareReplay,
+  Subject,
+  Subscription,
+  switchMap,
+  tap,
+  timer,
+} from 'rxjs';
 
 @Component({
   selector: 'app-rxjs-playground',
   templateUrl: './rxjs-playground.component.html',
-  styleUrls: ['./rxjs-playground.component.scss']
+  styleUrls: ['./rxjs-playground.component.scss'],
 })
-export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
+export class RxjsPlaygroundComponent implements OnInit, OnDestroy {
+  searchString: string = '';
+  private searchStringObj$: Subject<string> = new Subject();
+
   // Model for form input value - this will always have latest value
   public inputValue: string = '11';
 
-  debouncedInputValue :any;
+  onSearchStringChange(event: Event) {
+    console.log(this.searchString);
+    this.searchStringObj$.next(this.searchString);
+  }
+
+  debouncedInputValue: any;
   // Holds results
   public people$: Subject<any> = new Subject();
 
@@ -19,28 +45,39 @@ export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
   private searchDecouncer$: Subject<string> = new Subject();
 
   tesObservableSub: any;
+  searchObservableSub: any;
   rxjsOperatorType: string = '';
   sub = new Subject<string>();
-  subscription?:Subscription;
-  constructor() { 
-  }
-  ngOnDestroy(){
-    this.tesObservableSub.unsubscribe()
+  subscription?: Subscription;
+  constructor() {}
+  ngOnDestroy() {
+    this.tesObservableSub.unsubscribe();
+    this.searchObservableSub.unsubscribe();
   }
 
   ngOnInit(): void {
-    const testObservable = new Observable(observer=>{
-      let count=0
-      setInterval(()=>{
+   this.searchObservableSub = this.searchStringObj$
+     .pipe(
+       debounceTime(200),
+       distinctUntilChanged(),
+       switchMap((searchQuery) => this.loadAndSearch(searchQuery))
+     )
+     .subscribe((results) => {
+      console.log(results);
+
+     });
+    const testObservable = new Observable((observer) => {
+      let count = 0;
+      setInterval(() => {
         observer.next(count);
-        if(count>3){
-        observer.error(new Error('something wnet wrong'))
+        if (count > 3) {
+          observer.error(new Error('something wnet wrong'));
         }
         //observer.complete();
         count++;
-      },1000)
-    })
-    
+      }, 1000);
+    });
+
     // // old way
     // this.tesObservableSub = testObservable.subscribe(data=>{
     //   console.log(data);
@@ -55,23 +92,36 @@ export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
     //   complete:()=>{}
     // })
 
-    this.tesObservableSub = testObservable.pipe(filter((data:any) => {return data>0}),map(data => {return data + ' - Round'})).subscribe({
-      next:data=>{console.log(data);}, 
-      error:error=>{console.log(error);},
-      complete:()=>{}
-    });
+    this.tesObservableSub = testObservable
+      .pipe(
+        filter((data: any) => {
+          return data > 0;
+        }),
+        map((data) => {
+          return data + ' - Round';
+        })
+      )
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+        complete: () => {},
+      });
 
- this.setupSearchDebouncer();
+    this.setupSearchDebouncer();
 
     // Do initial search for 'darth'
     this.search(this.inputValue);
   }
 
   fireEvent() {
-    this.sub.next("first");
-    this.sub.next("second");
+    this.sub.next('first');
+    this.sub.next('second');
 
-    console.log("-------");
+    console.log('-------');
   }
   onRxjsOperatorChange(event: any) {
     this.deregister();
@@ -99,10 +149,10 @@ export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
     this.subscription = this.sub
       .asObservable()
       .pipe(
-        tap(value => console.log("--> sent out", value)),
-        mergeMap(value => this.anyLongRunningOp(value))
+        tap((value) => console.log('--> sent out', value)),
+        mergeMap((value) => this.anyLongRunningOp(value))
       )
-      .subscribe(value => console.log("<-- received", value));
+      .subscribe((value) => console.log('<-- received', value));
   }
 
   concateMap() {
@@ -110,11 +160,10 @@ export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
     this.subscription = this.sub
       .asObservable()
       .pipe(
-        tap(value => console.log("--> sent out", value)),
-        concatMap(value => this.anyLongRunningOp(value))
+        tap((value) => console.log('--> sent out', value)),
+        concatMap((value) => this.anyLongRunningOp(value))
       )
-      .subscribe(value => console.log("<-- received", value));
-
+      .subscribe((value) => console.log('<-- received', value));
   }
 
   switchMap() {
@@ -122,10 +171,10 @@ export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
     this.subscription = this.sub
       .asObservable()
       .pipe(
-        tap(value => console.log("--> sent out", value)),
-        switchMap(value => this.anyLongRunningOp(value))
+        tap((value) => console.log('--> sent out', value)),
+        switchMap((value) => this.anyLongRunningOp(value))
       )
-      .subscribe(value => console.log("<-- received", value));
+      .subscribe((value) => console.log('<-- received', value));
   }
 
   exhaustMap() {
@@ -133,10 +182,10 @@ export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
     this.subscription = this.sub
       .asObservable()
       .pipe(
-        tap(value => console.log("--> sent out", value)),
-        exhaustMap(value => this.anyLongRunningOp(value))
+        tap((value) => console.log('--> sent out', value)),
+        exhaustMap((value) => this.anyLongRunningOp(value))
       )
-      .subscribe(value => console.log("<-- received", value));
+      .subscribe((value) => console.log('<-- received', value));
   }
 
   anyLongRunningOp(value: string) {
@@ -150,23 +199,23 @@ export class RxjsPlaygroundComponent implements OnInit,OnDestroy {
   }
 
   data = Array(100).fill(0).map(Math.random);
- loadAndSearch(term: string): Observable<Data> {
-  const filtered = this.data.filter((item) => `${item}`.match(term));
-  return of(filtered).pipe(delay(100));
-}
-public onSearchInputChange(term: string): void {
+  loadAndSearch(term: string): Observable<Data> {
+    const filtered = this.data.filter((item) => `${item}`.match(term));
+    return of(filtered).pipe(delay(100));
+  }
+  public onSearchInputChange(term: string): void {
     // `onSearchInputChange` is called whenever the input is changed.
     // We have to send the value to debouncing observable
     this.searchDecouncer$.next(term);
   }
- private setupSearchDebouncer(): void {
+  private setupSearchDebouncer(): void {
     // Subscribe to `searchDecouncer$` values,
     // but pipe through `debounceTime` and `distinctUntilChanged`
     this.searchDecouncer$
       .pipe(debounceTime(250), distinctUntilChanged())
       .subscribe((term: string) => {
         // Remember value after debouncing
-       this.debouncedInputValue = term;
+        this.debouncedInputValue = term;
 
         // Do the actual search
         this.search(term);
@@ -178,9 +227,9 @@ public onSearchInputChange(term: string): void {
     this.people$.next(null);
 
     // Make API call
-   
+
     this.loadAndSearch(term).subscribe((results) => {
-      console.log(results);
+      //console.log(results);
       this.people$.next(results);
     });
   }
